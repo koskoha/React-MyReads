@@ -19,10 +19,9 @@ class BooksApp extends React.Component {
 
   fetchBooks(){
     BooksAPI.getAll().then(booksResult => {
-      console.log("My books", booksResult);
       const books = {
         'currentlyReading': booksResult.filter(book => book.shelf === "currentlyReading"),
-        'wandToRead': booksResult.filter(book => book.shelf === "wantToRead"),
+        'wantToRead': booksResult.filter(book => book.shelf === "wantToRead"),
         'read': booksResult.filter(book => book.shelf === "read")
       }
       this.setState({ books })
@@ -48,7 +47,7 @@ class BooksApp extends React.Component {
         )}/>
         <Route path='/search' render={() => (
           <Search
-            booksOnShelf={this.state}
+            myShelf={this.state.books}
             onShelfUpdate={this.onShelfUpdate}
           />
         )} />

@@ -19,7 +19,7 @@ class ListBooks extends Component {
             <Bookshelf 
               shelfTitle='Want to Read' 
               onShelfUpdate={this.props.onShelfUpdate} 
-              books={this.props.books.wandToRead}/>
+              books={this.props.books.wantToRead}/>
             <Bookshelf 
               shelfTitle='Read' 
               onShelfUpdate={this.props.onShelfUpdate} 

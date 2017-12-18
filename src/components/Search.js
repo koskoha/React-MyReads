@@ -7,7 +7,7 @@ import Book from './Book';
 class Search extends Component {
   state={
     searchResults:[],
-    query:''
+    query:'' 
   }
 
   updateQuery(query) {
@@ -16,10 +16,11 @@ class Search extends Component {
   }
 
   runSearch(){
-    BooksAPI.search(this.state.query, 15).then(books => {console.log("Search: ", books); this.setState({searchResults: books})})
+    BooksAPI.search(this.state.query, 15).then(books => {this.setState({searchResults: books})})
   }
 
   render() {
+    const myBooks = [...this.props.myShelf.read, ...this.props.myShelf.currentlyReading, ...this.props.myShelf.wantToRead];
     return(
       <div className="search-books">
         <div className="search-books-bar">
@@ -35,8 +36,18 @@ class Search extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {
-              this.state.searchResults.map(book => <Book onShelfUpdate={this.props.onShelfUpdate} bookInfo={book}/>)
+            { 
+              this.state.searchResults && this.state.searchResults.map(book => {
+                const { id } = book;
+                const match = myBooks.filter( book => book.id === id);
+                const bookInfo = match[0] === undefined ? book : match[0];
+                return <li key={bookInfo.id}>
+                    <Book
+                      onShelfUpdate={this.props.onShelfUpdate}    
+                      bookInfo={bookInfo}
+                    />
+                  </li>
+              })
             }
           </ol>
         </div>
