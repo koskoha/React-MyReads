@@ -22,8 +22,8 @@ class Search extends Component {
 
   render() {
     const { myShelf } = this.props;
-    let myBooks = [];
-    !_.isEmpty(myShelf) ? myBooks = [...myShelf.read, ...myShelf.currentlyReading, ...myShelf.wantToRead] : [];
+    let myBooks;
+    !_.isEmpty(myShelf) ? myBooks = [...myShelf.read, ...myShelf.currentlyReading, ...myShelf.wantToRead] : myBooks = [];
     return(
       <div className="search-books">
         <div className="search-books-bar">
