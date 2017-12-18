@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as BooksAPI from '../BooksAPI';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 
 import Book from './Book';
 
@@ -20,7 +21,9 @@ class Search extends Component {
   }
 
   render() {
-    const myBooks = [...this.props.myShelf.read, ...this.props.myShelf.currentlyReading, ...this.props.myShelf.wantToRead];
+    const { myShelf } = this.props;
+    let myBooks = [];
+    !_.isEmpty(myShelf) ? myBooks = [...myShelf.read, ...myShelf.currentlyReading, ...myShelf.wantToRead] : [];
     return(
       <div className="search-books">
         <div className="search-books-bar">
